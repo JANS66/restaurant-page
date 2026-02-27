@@ -9,6 +9,11 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
+    devServer: {
+        // Webpack naturally watches JS files.
+        // We add 'watchFiles' to manually track files that aren't imported in JS.
+        watchFiles: ["./src/template.html"], // Forces a browser reaload if i edit the HTML file
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/template.html',
