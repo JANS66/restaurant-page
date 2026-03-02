@@ -9,6 +9,14 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
+    },
     devServer: {
         // Webpack naturally watches JS files.
         // We add 'watchFiles' to manually track files that aren't imported in JS.

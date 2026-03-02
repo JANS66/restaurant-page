@@ -1,18 +1,28 @@
 export function createMenuPage() {
-    const content = document.querySelector("#content");
+    const container = document.createElement("section");
+    container.classList.add("fade-in-content");
 
     const title = document.createElement("h1");
     title.textContent = "Our Menu";
 
-    const list = document.createElement("ul");
-    const items = ["Golden Pancakes - €12", "Spatula Burger - €15", "Chef's Special Pasta - €18"];
+    const grid = document.createElement("div");
+    grid.className = "menu-grid";
+
+    const items = [
+        { name: "Golden Pancakes", price: "€12", desc: "Fluffy and bright." },
+        { name: "Spatula Burger", price: "€15", desc: "Signature beef blend." }
+    ];
 
     items.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        list.appendChild(li);
+        const card = document.createElement("article");
+        card.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>${item.desc}</p>
+            <span>${item.price}</span>
+        `;
+        grid.appendChild(card);
     });
 
-    content.appendChild(title);
-    content.appendChild(list);
+    container.append(title, grid);
+    return container;
 }

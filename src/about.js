@@ -1,12 +1,28 @@
 export function createAboutPage() {
-    const content = document.querySelector("#content");
+    const section = document.createElement("section");
+    section.classList.add("fade-in-content");
+    section.setAttribute("aria-labelledby", "about-title");
 
     const title = document.createElement("h1");
-    title.textContent = "About Us";
+    title.id = "about-title";
+    title.textContent = "About Our Journey";
 
-    const text = document.createElement("p");
-    text.textContent = "Contact us at: 123456789 or visit us at Flavor Street 123."
+    const contentWrapper = document.createElement("div");
+    contentWrapper.className = "about-grid";
 
-    content.appendChild(title);
-    content.appendChild(text);
+    const bio = document.createElement("p");
+    bio.textContent = "The Golden Spatula started as a small family dream. Today, it stands as a testament to the power of fresh ingredients and a welcoming atmosphere.";
+
+    const contactInfo = document.createElement("address");
+    contactInfo.innerHTML = `
+        <h3>Contact Us</h3>
+        <p>📍 123 Flavor Street, Culinary District</p>
+        <p>📞 <a href="tel:+15551234567">(555) 123-4567</a></p>
+        <p>✉️ <a href="mailto:hello@goldenspatula.com">hello@goldenspatula.com</a></p>
+    `;
+
+    contentWrapper.append(bio, contactInfo);
+    section.append(title, contentWrapper);
+
+    return section;
 }

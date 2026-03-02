@@ -1,27 +1,36 @@
+import "./styles.css";
 import { createHomePage } from "./initial-page-load.js";
 import { createMenuPage } from "./menu.js";
 import { createAboutPage } from "./about.js";
 
-function clearContent() {
-    const content = document.querySelector("#content");
-    content.innerHTML = "";
-}
-
-createHomePage();
-
+const contentArea = document.querySelector("#content");
 const navButtons = document.querySelectorAll("nav button");
 
-navButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        clearContent();
-        const tabName = e.target.textContent;
+const routes = {
+    "Home": createHomePage,
+    "Menu": createMenuPage,
+    "About": createAboutPage
+};
 
-        if (tabName === "Home") {
-            createHomePage();
-        } else if (tabName === "Menu") {
-            createMenuPage();
-        } else if (tabName === "About") {
-            createAboutPage();
-        }
+function renderTab(tabName) {
+    contentArea.innerHTML = "";
+
+    if (routes[tabName]) {
+        const pageElement = routes[tabName]();
+        contentArea.appendChild(pageElement);
+    }
+
+    navButtons.forEach(btn => {
+        const isSelected = btn.textContent === tabName;
+        btn.setAttribute("aria-selected", isSelected);
+        btn.classList.toggle("active", isSelected);
     });
+}
+
+document.querySelector("nav").addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+        renderTab(e.target.textContent);
+    }
 });
+
+renderTab("Home");
